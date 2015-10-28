@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from urlparse import urlparse
 import urllib2
+import re
 
 class Soup:
 
@@ -20,11 +21,19 @@ class Soup:
     def get_links(self):
         ret_array = []
         for anchor in self.get_anchors():
-            ret_array.append(anchor.get('href'))
-        return ret_array
+            href = anchor.get('href')
+            if href == None:
+                continue
 
-ex = Soup('http://www.google.com')
-for link in ex.get_links():
-    print link
-    
-print ex.domain
+            link = ''
+            if href[0] == '/':
+                link = self.domain + href[1:len(href)]
+            else :
+                link = href
+
+            pattern = re.compile('http')
+            if (not pattern.search(link)):
+                continue
+
+            ret_array.append(link)
+        return set(ret_array)
