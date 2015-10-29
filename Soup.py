@@ -19,7 +19,7 @@ class Soup:
         return self.soup.find_all('a')
 
     def get_links(self):
-        ret_array = []
+        ret_list = []
         for anchor in self.get_anchors():
             href = anchor.get('href')
             if href == None:
@@ -35,5 +35,5 @@ class Soup:
             if (not pattern.search(link)):
                 continue
 
-            ret_array.append(link)
-        return set(ret_array)
+            ret_list.append(link)
+        return set(ret_list)
