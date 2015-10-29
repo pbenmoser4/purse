@@ -84,6 +84,19 @@ class BDNode:
                 return False
         return False
 
+    def get_in_degree(self):
+        return len(self.source_edges)
+
+    def get_out_degree(self):
+        return len(self.dest_edges)
+
+    def get_degree(self, _type):
+        if _type == 'in':
+            return self.get_in_degree
+        elif _type == 'out':
+            return self.get_out_degree
+        else: return None
+
 class BDEdge:
 
     def __init__(self, source_node, dest_node):
@@ -102,6 +115,9 @@ class BDEdge:
         if type(other) is BDEdge:
             return self.source == other.source and self.dest == other.dest
         return False
+
+    def increment_count(self):
+        self.count += 1
 
 
 graph = BidirectionalGraph()
