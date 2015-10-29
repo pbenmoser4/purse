@@ -24,14 +24,14 @@ class BidirectionalGraph:
             if dest_node not in self.nodes:
                 # dest_node hasn't been added yet
                 self.add_node(dest_node)
-            var edge = BDEdge(source_node, dest_node)
+            edge = BDEdge(source_node, dest_node)
             source_node.add_edge(edge, 'dest')
             dest_node.add_edge(edge, 'source')
             return True
         return False
 
-    def add_edge_with_values(self, source_value, dest_value):
-
+    # def add_edge_with_values(self, source_value, dest_value):
+        #do something eventually
 
 
 class BDNode:
@@ -43,12 +43,22 @@ class BDNode:
         self.count = 1
 
     def __str__(self):
-        return str(self.value)
+        ret = str(self.value)
+        ret += '\nDest Edges:\n'
+        for edge in self.dest_edges:
+            ret += '\t' + str(edge) + '\n'
+        ret += 'Source Edges:\n'
+        for edge in self.source_edges:
+            ret += '\t' + str(edge) + '\n'
+        return ret
 
     def __eq__(self, other):
         if isinstance(other, BDNode):
             return other.value == self.value
         return False
+
+    def __hash__(self):
+        return hash(self.value)
 
     def add_dest_edge(self, edge):
         if isinstance(edge, BDEdge):
@@ -82,9 +92,23 @@ class BDEdge:
         self.count = 1
 
     def __str__(self):
-        return str(self.source) + '-->' + str(self.dest)
+        return str(self.source.value) + '-' + str(self.count) + '->' + str(self.dest.value)
+
+    def __hash__(self):
+        hs = str(self.source) + str(self.dest)
+        return hash(hs)
 
     def __eq__(self, other):
         if type(other) is BDEdge:
             return self.source == other.source and self.dest == other.dest
         return False
+
+
+graph = BidirectionalGraph()
+source_node = BDNode('source')
+dest_node = BDNode('dest')
+graph.add_node(source_node)
+graph.add_node(dest_node)
+graph.add_edge(source_node, dest_node)
+print source_node
+print dest_node
