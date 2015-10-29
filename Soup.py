@@ -19,6 +19,8 @@ class Soup:
         return self.soup.find_all('a')
 
     def get_links(self):
+        """
+        """
         ret_list = []
         for anchor in self.get_anchors():
             href = anchor.get('href')
