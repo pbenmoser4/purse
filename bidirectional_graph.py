@@ -143,9 +143,20 @@ if __name__ == '__main__':
     split_passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation))).split()
     # for item in passage.split():
     #     word_graph.add_node_with_value(item.lower())
+    previous_node = None
     for i in range(len(split_passage)):
         item = split_passage[i].lower()
-        word_graph.add_node_with_value(item)
+        node = BDNode(item)
+        if word_graph.add_node(node):
+            if i > 0:
+                # only add edges from current note to the previous node, and
+                # from the previous node to the current node Because of this,
+                # we can only do this after
+                edge = BDEdge(previous_node, node)
+                previous_node.add_dest_edge(edge)
+                node.add_source_edge(edge)
+            previous_node = node
+
     print word_graph
     print len(split_passage)
     print len(word_graph.nodes)
