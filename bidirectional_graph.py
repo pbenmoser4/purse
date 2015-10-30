@@ -16,10 +16,11 @@ class BidirectionalGraph:
         return False
 
     def add_node_with_value(self, value):
-        if value == None or BDNode(value) in self.nodes:
-            return False
-        self.nodes.add(BDNode(value))
-        return True
+        # if value == None or BDNode(value) in self.nodes:
+        #     return False
+        # self.nodes.add(BDNode(value))
+        # return True
+        return self.add_node(BDNode(value))
 
     def add_edge(self, source_node, dest_node):
         if isinstance(source_node, BDNode) and isinstance(dest_node, BDNode):
@@ -124,20 +125,27 @@ class BDEdge:
         self.count += 1
 
 
-graph = BidirectionalGraph()
-source_node = BDNode('source')
-dest_node = BDNode('dest')
-other_source = BDNode('source')
-graph.add_node(source_node)
-graph.add_node(dest_node)
-graph.add_node(other_source)
-graph.add_edge(source_node, dest_node)
-print source_node
-print dest_node
-print graph
+if __name__ == '__main__':
+    # graph = BidirectionalGraph()
+    # source_node = BDNode('source')
+    # dest_node = BDNode('dest')
+    # other_source = BDNode('source')
+    # graph.add_node(source_node)
+    # graph.add_node(dest_node)
+    # graph.add_node(other_source)
+    # graph.add_edge(source_node, dest_node)
+    # print source_node
+    # print dest_node
+    # print graph
 
-# word_graph = BidirectionalGraph()
-# passage = open('robin-passage.txt', 'r').read()
-# passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation)))
-# for item in passage.split():
-#     word_graph.add_node_with_value(item.lowercase)
+    word_graph = BidirectionalGraph()
+    passage = open('robin-passage.txt', 'r').read()
+    split_passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation))).split()
+    # for item in passage.split():
+    #     word_graph.add_node_with_value(item.lower())
+    for i in range(len(split_passage)):
+        item = split_passage[i].lower()
+        word_graph.add_node_with_value(item)
+    print word_graph
+    print len(split_passage)
+    print len(word_graph.nodes)
