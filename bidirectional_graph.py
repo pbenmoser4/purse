@@ -1,16 +1,22 @@
+import re
+import string
+
 class BidirectionalGraph:
 
     def __init__(self):
         self.nodes = set()
 
+    def __str__(self):
+        return str(self.nodes)
+
     def add_node(self, node):
-        if type(node) is BDNode:
+        if node.__class__ == BDNode and node not in self.nodes:
             self.nodes.add(node)
             return True
         return False
 
     def add_node_with_value(self, value):
-        if value == None:
+        if value == None or BDNode(value) in self.nodes:
             return False
         self.nodes.add(BDNode(value))
         return True
@@ -61,24 +67,22 @@ class BDNode:
         return hash(self.value)
 
     def add_dest_edge(self, edge):
-        if isinstance(edge, BDEdge):
+        if isinstance(edge, BDEdge) and edge not in self.dest_edges:
             self.dest_edges.add(edge)
             return True
         return False
 
     def add_source_edge(self, edge):
-        if isinstance(edge, BDEdge):
+        if isinstance(edge, BDEdge) and edge not in self.source_edges:
             self.source_edges.add(edge)
             return True
         return False
 
     def add_edge(self, edge, _type):
         if isinstance(edge, BDEdge):
-            if _type == 'source':
-                self.add_source_edge(edge)
+            if _type == 'source' and self.add_source_edge(edge):
                 return True
-            elif _type == 'dest':
-                self.add_dest_edge(edge)
+            elif _type == 'dest' and self.add_dest_edge(edge):
                 return True
             else:
                 return False
@@ -112,7 +116,7 @@ class BDEdge:
         return hash(hs)
 
     def __eq__(self, other):
-        if type(other) is BDEdge:
+        if other.__class__ == BDEdge:
             return self.source == other.source and self.dest == other.dest
         return False
 
@@ -123,8 +127,17 @@ class BDEdge:
 graph = BidirectionalGraph()
 source_node = BDNode('source')
 dest_node = BDNode('dest')
+other_source = BDNode('source')
 graph.add_node(source_node)
 graph.add_node(dest_node)
+graph.add_node(other_source)
 graph.add_edge(source_node, dest_node)
 print source_node
 print dest_node
+print graph
+
+# word_graph = BidirectionalGraph()
+# passage = open('robin-passage.txt', 'r').read()
+# passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation)))
+# for item in passage.split():
+#     word_graph.add_node_with_value(item.lowercase)
