@@ -157,6 +157,7 @@ if __name__ == '__main__':
                 node.add_source_edge(edge)
             previous_node = node
 
-    print word_graph
     print len(split_passage)
     print len(word_graph.nodes)
+    for node in word_graph.nodes:
+        print node
