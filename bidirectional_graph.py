@@ -37,9 +37,18 @@ class BidirectionalGraph:
                 # if either of the nodes haven't been added, return None
                 return None
             edge = BDEdge(source_node, dest_node)
-            source_node.add_edge(edge, 'out')
-            dest_node.add_edge(edge, 'in')
-            return True
+            if edge.value in source_node.out_edges:
+                # The edge has already been added to the graph; increment the
+                # count and return the incremented edge
+                edge = source_node.out_edges[edge.value]
+                edge.increment_count()
+                return edge
+            else:
+                # The edge has not yet been added, but we know that both of the
+                # nodes are aldready a part of the graph
+                source_node.add_edge(edge, 'out')
+                dest_node.add_edge(edge, 'in')
+                return edge
         return None
 
     # def add_edge_with_values(self, source_value, dest_value):
@@ -50,8 +59,6 @@ class BDNode:
 
     def __init__(self, value):
         self.value = value
-        # self.dest_edges = set()
-        # self.source_edges = set()
         self.out_edges = {}
         self.in_edges = {}
         self._match = None

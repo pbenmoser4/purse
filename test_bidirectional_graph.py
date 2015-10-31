@@ -41,6 +41,12 @@ class BidirectionalGraphTestCase(unittest.TestCase):
         graph.add_node(source)
         self.assertIsNone(graph.add_edge(source, dest))
 
+        # Adding an edge with both nodes in the graph returns a new edge,
+        # if the edge doesn't yet exist in the graph
+
+        # Adding an edge with both nodes in the graph increments the count of
+        # the edge that already exists
+
 
 class BDNodeTestCase(unittest.TestCase):
     """ Tests for the BDNode class """
