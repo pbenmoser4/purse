@@ -21,6 +21,7 @@ class BidirectionalGraph:
                 # this node does not exist; add to self.nodes, return the node
                 self.nodes[node.value] = node
                 return node
+        return None
 
     def add_node_with_value(self, value):
         return self.add_node(BDNode(value))

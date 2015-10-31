@@ -24,5 +24,12 @@ class BidirectionalGraphTestCase(unittest.TestCase):
         self.assertIsInstance(duplicate_ret, BDNode)
         self.assertIs(duplicate_ret, node_ret)
 
+    def test_add_edge(self):
+        graph = BidirectionalGraph()
+        source = BDNode('source')
+        dest = BDNode('dest')
+
+        
+
 if __name__ == '__main__':
     unittest.main()
