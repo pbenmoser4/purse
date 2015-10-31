@@ -99,20 +99,18 @@ class BDNode:
         return None
 
     def add_edge(self, edge, _type):
-        if isinstance(edge, BDEdge):
-            if _type == 'source' and self.add_source_edge(edge):
-                return True
-            elif _type == 'dest' and self.add_dest_edge(edge):
-                return True
-            else:
-                return False
-        return False
+        if _type == 'in':
+            return self.add_in_edge(edge)
+        elif _type == 'out':
+            return self.add_out_edge(edge)
+        else:
+            return None
 
     def get_in_degree(self):
-        return len(self.source_edges)
+        return len(self.in_edges)
 
     def get_out_degree(self):
-        return len(self.dest_edges)
+        return len(self.out_edges)
 
     def get_degree(self, _type):
         if _type == 'in':
