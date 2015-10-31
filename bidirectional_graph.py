@@ -20,7 +20,7 @@ class BidirectionalGraph:
         # return False
         if node.__class__ == BDNode:
             if node in self.nodes:
-
+                return node.__match
             else:
                 # this node does not exist; add to self.nodes, return the node
                 self.nodes.add(node)
