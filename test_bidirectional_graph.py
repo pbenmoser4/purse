@@ -11,7 +11,8 @@ class BidirectionalGraphTestCase(unittest.TestCase):
         graph = BidirectionalGraph()
 
         # Adding a node returns BDNode instance
-        self.assertIsInstance(graph.add_node(node), BDNode)
+        node_ret = graph.add_node(node)
+        self.assertIsInstance(node_ret, BDNode)
 
         # Adding a non-node returns None
         value_ret = graph.add_node(value)
@@ -19,6 +20,9 @@ class BidirectionalGraphTestCase(unittest.TestCase):
         self.assertIsNone(value_ret)
 
         # Adding a duplicate node returns the original
+        duplicate_ret = graph.add_node(duplicate_node)
+        self.assertIsInstance(duplicate_ret, BDNode)
+        self.assertIs(duplicate_ret, node_ret)
 
 if __name__ == '__main__':
     unittest.main()

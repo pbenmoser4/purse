@@ -8,7 +8,7 @@ import string
 class BidirectionalGraph:
 
     def __init__(self):
-        self.nodes = set()
+        self.nodes = {}
 
     def __str__(self):
         return str(self.nodes)
@@ -20,7 +20,8 @@ class BidirectionalGraph:
         # return False
         if node.__class__ == BDNode:
             if node in self.nodes:
-                return node.__match
+                print node._match
+                return node._match
             else:
                 # this node does not exist; add to self.nodes, return the node
                 self.nodes.add(node)
@@ -55,7 +56,7 @@ class BDNode:
         self.dest_edges = set()
         self.source_edges = set()
         self.count = 1
-        self.__match = None
+        self._match = None
 
     def __str__(self):
         ret = str(self.value)
@@ -73,7 +74,7 @@ class BDNode:
             # Trick to get the already existing node from a set when checking
             # for inclusion
             if match:
-                self.__match = other
+                self._match = other
             return match
         return NotImplemented
 
@@ -121,7 +122,7 @@ class BDEdge:
         self.source = source_node
         self.dest = dest_node
         self.count = 1
-        self.__match = None
+        self._match = None
 
     def __str__(self):
         return str(self.source.value) + '-' + str(self.count) + '->' + str(self.dest.value)
