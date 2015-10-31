@@ -2,8 +2,6 @@ import re
 import string
 
 # TODO choose between isinstance and .__class__ equality check
-# TODO add match field to node and edge so that you can get it back on inclusion check
-# TODO return node from add_node
 
 class BidirectionalGraph:
 
@@ -39,8 +37,8 @@ class BidirectionalGraph:
                 # if either of the nodes haven't been added, return None
                 return None
             edge = BDEdge(source_node, dest_node)
-            source_node.add_edge(edge, 'dest')
-            dest_node.add_edge(edge, 'source')
+            source_node.add_edge(edge, 'out')
+            dest_node.add_edge(edge, 'in')
             return True
         return None
 

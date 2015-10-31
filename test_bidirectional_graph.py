@@ -28,6 +28,13 @@ class BidirectionalGraphTestCase(unittest.TestCase):
         graph = BidirectionalGraph()
         source = BDNode('source')
         dest = BDNode('dest')
+        fake_source = 'source'
+        fake_dest = 'dest'
+
+        # Trying to add an edge with non-nodes returns None
+        self.assertIsNone(graph.add_edge(source, fake_dest))
+        self.assertIsNone(graph.add_edge(fake_source, dest))
+        self.assertIsNone(graph.add_edge(fake_source, fake_dest))
 
 
 class BDNodeTestCase(unittest.TestCase):
