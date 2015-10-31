@@ -29,7 +29,12 @@ class BidirectionalGraphTestCase(unittest.TestCase):
         source = BDNode('source')
         dest = BDNode('dest')
 
-        
+
+class BDNodeTestCase(unittest.TestCase):
+    """ Tests for the BDNode class """
+
+class BDEdgeTestCase(unittest.TestCase):
+    """ Tests for the BDEdge class """
 
 if __name__ == '__main__':
     unittest.main()
