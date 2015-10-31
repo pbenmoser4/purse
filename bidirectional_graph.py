@@ -1,6 +1,10 @@
 import re
 import string
 
+# TODO choose between isinstance and .__class__ equality check
+# TODO add match field to node and edge so that you can get it back on inclusion check
+# TODO return node from add_node
+
 class BidirectionalGraph:
 
     def __init__(self):
@@ -10,16 +14,19 @@ class BidirectionalGraph:
         return str(self.nodes)
 
     def add_node(self, node):
-        if node.__class__ == BDNode and node not in self.nodes:
-            self.nodes.add(node)
-            return True
-        return False
+        # if node.__class__ == BDNode and node not in self.nodes:
+        #     self.nodes.add(node)
+        #     return True
+        # return False
+        if node.__class__ == BDNode:
+            if node in self.nodes:
+
+            else:
+                # this node does not exist; add to self.nodes, return the node
+                self.nodes.add(node)
+                return node
 
     def add_node_with_value(self, value):
-        # if value == None or BDNode(value) in self.nodes:
-        #     return False
-        # self.nodes.add(BDNode(value))
-        # return True
         return self.add_node(BDNode(value))
 
     def add_edge(self, source_node, dest_node):
@@ -48,6 +55,7 @@ class BDNode:
         self.dest_edges = set()
         self.source_edges = set()
         self.count = 1
+        self.__match = None
 
     def __str__(self):
         ret = str(self.value)
@@ -61,6 +69,11 @@ class BDNode:
 
     def __eq__(self, other):
         if isinstance(other, BDNode):
+            match = other.value == self.value
+            # Trick to get the already existing node from a set when checking
+            # for inclusion
+            if match:
+                self.__match = other
             return other.value == self.value
         return False
 
@@ -108,6 +121,7 @@ class BDEdge:
         self.source = source_node
         self.dest = dest_node
         self.count = 1
+        self.__match = None
 
     def __str__(self):
         return str(self.source.value) + '-' + str(self.count) + '->' + str(self.dest.value)
