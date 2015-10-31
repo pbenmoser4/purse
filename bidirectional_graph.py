@@ -61,8 +61,7 @@ class BDNode:
         self.value = value
         self.out_edges = {}
         self.in_edges = {}
-        self._match = None
-
+        
     def __str__(self):
         ret = str(self.value)
         ret += '\nOut Edges:\n'
@@ -131,7 +130,6 @@ class BDEdge:
         self.source = source_node
         self.dest = dest_node
         self.count = 1
-        self._match = None
 
     def __str__(self):
         return str(self.source.value) + '-' + str(self.count) + '->' + str(self.dest.value)
