@@ -14,17 +14,12 @@ class BidirectionalGraph:
         return str(self.nodes)
 
     def add_node(self, node):
-        # if node.__class__ == BDNode and node not in self.nodes:
-        #     self.nodes.add(node)
-        #     return True
-        # return False
         if node.__class__ == BDNode:
-            if node in self.nodes:
-                print node._match
-                return node._match
+            if node.value in self.nodes:
+                return self.nodes[node.value]
             else:
                 # this node does not exist; add to self.nodes, return the node
-                self.nodes.add(node)
+                self.nodes[node.value] = node
                 return node
 
     def add_node_with_value(self, value):
