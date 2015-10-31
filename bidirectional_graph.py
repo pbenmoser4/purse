@@ -79,9 +79,22 @@ class BDNode:
     def add_out_edge(self, edge):
         if isinstance(edge, BDEdge):
             if edge.value in self.out_edges:
-                return self.out_edges[edge.value]
+                ret = BDEdge(self.out_edges[edge.value])
+                ret.increment_count()
+                return ret
             else:
                 self.out_edges[edge.value] = edge
+                return edge
+        return None
+
+    def add_in_edge(self, edge):
+        if isinstance(edge, BDEdge):
+            if edge.value in self.in_edges:
+                ret = BDEdge(self.in_edges[edge.value])
+                ret.increment_count()
+                return ret
+            else:
+                self.in_edges[edge.value] = edge
                 return edge
         return None
 
