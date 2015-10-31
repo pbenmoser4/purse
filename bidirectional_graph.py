@@ -74,8 +74,8 @@ class BDNode:
             # for inclusion
             if match:
                 self.__match = other
-            return other.value == self.value
-        return False
+            return match
+        return NotImplemented
 
     def __hash__(self):
         return hash(self.value)
