@@ -36,6 +36,11 @@ class BidirectionalGraphTestCase(unittest.TestCase):
         self.assertIsNone(graph.add_edge(fake_source, dest))
         self.assertIsNone(graph.add_edge(fake_source, fake_dest))
 
+        # Trying to add an edge when both nodes aren't in the graph returns None
+        self.assertIsNone(graph.add_edge(source, dest))
+        graph.add_node(source)
+        self.assertIsNone(graph.add_edge(source, dest))
+
 
 class BDNodeTestCase(unittest.TestCase):
     """ Tests for the BDNode class """
