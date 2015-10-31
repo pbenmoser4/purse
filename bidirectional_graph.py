@@ -27,19 +27,22 @@ class BidirectionalGraph:
         return self.add_node(BDNode(value))
 
     def add_edge(self, source_node, dest_node):
+        # Holders for the source node and the destination node. We use these
+        # holder variables so that if the graph already contains the node, we
+        # can refer to the already existing node, rather than the node that was
+        # passed into the methodd
+        source = None
+        dest = None
         if isinstance(source_node, BDNode) and isinstance(dest_node, BDNode):
             # both nodes are confirmed as BDNodes
-            if source_node not in self.nodes:
-                # source_node hasn't been added yet
-                self.add_node(source_node)
-            if dest_node not in self.nodes:
-                # dest_node hasn't been added yet
-                self.add_node(dest_node)
+            if source_node.value not in self.nodes or dest_node.value not in self.nodes:
+                # if either of the nodes haven't been added, return None
+                return None
             edge = BDEdge(source_node, dest_node)
             source_node.add_edge(edge, 'dest')
             dest_node.add_edge(edge, 'source')
             return True
-        return False
+        return None
 
     # def add_edge_with_values(self, source_value, dest_value):
         #do something eventually
