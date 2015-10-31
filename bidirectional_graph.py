@@ -52,18 +52,19 @@ class BDNode:
 
     def __init__(self, value):
         self.value = value
-        self.dest_edges = set()
-        self.source_edges = set()
-        self.count = 1
+        # self.dest_edges = set()
+        # self.source_edges = set()
+        self.out_edges = {}
+        self.in_edges = {}
         self._match = None
 
     def __str__(self):
         ret = str(self.value)
-        ret += '\nDest Edges:\n'
-        for edge in self.dest_edges:
+        ret += '\nOut Edges:\n'
+        for edge in self.out_edges:
             ret += '\t' + str(edge) + '\n'
-        ret += 'Source Edges:\n'
-        for edge in self.source_edges:
+        ret += 'In Edges:\n'
+        for edge in self.in_edges:
             ret += '\t' + str(edge) + '\n'
         return ret
 
@@ -80,17 +81,22 @@ class BDNode:
     def __hash__(self):
         return hash(self.value)
 
-    def add_dest_edge(self, edge):
-        if isinstance(edge, BDEdge) and edge not in self.dest_edges:
-            self.dest_edges.add(edge)
-            return True
-        return False
+    # def add_dest_edge(self, edge):
+    #     if isinstance(edge, BDEdge) and edge not in self.dest_edges:
+    #         self.dest_edges.add(edge)
+    #         return True
+    #     return False
+    #
+    # def add_source_edge(self, edge):
+    #     if isinstance(edge, BDEdge) and edge not in self.source_edges:
+    #         self.source_edges.add(edge)
+    #         return True
+    #     return False
 
-    def add_source_edge(self, edge):
-        if isinstance(edge, BDEdge) and edge not in self.source_edges:
-            self.source_edges.add(edge)
-            return True
-        return False
+    def add_out_edge(self, edge):
+        if isinstance(edge, BDEdge) and edge not in self.out_edges:
+            self.out_edges.add(edge)
+            return edge
 
     def add_edge(self, edge, _type):
         if isinstance(edge, BDEdge):
