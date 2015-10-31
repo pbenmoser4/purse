@@ -61,42 +61,29 @@ class BDNode:
     def __str__(self):
         ret = str(self.value)
         ret += '\nOut Edges:\n'
-        for edge in self.out_edges:
-            ret += '\t' + str(edge) + '\n'
+        for key in self.out_edges:
+            ret += '\t' + str(self.out_edges[key]) + '\n'
         ret += 'In Edges:\n'
-        for edge in self.in_edges:
-            ret += '\t' + str(edge) + '\n'
+        for key in self.in_edges:
+            ret += '\t' + str(self.in_edges[key]) + '\n'
         return ret
 
     def __eq__(self, other):
         if isinstance(other, BDNode):
-            match = other.value == self.value
-            # Trick to get the already existing node from a set when checking
-            # for inclusion
-            if match:
-                self._match = other
-            return match
-        return NotImplemented
+            return other.value == self.value
+        return False
 
     def __hash__(self):
         return hash(self.value)
 
-    # def add_dest_edge(self, edge):
-    #     if isinstance(edge, BDEdge) and edge not in self.dest_edges:
-    #         self.dest_edges.add(edge)
-    #         return True
-    #     return False
-    #
-    # def add_source_edge(self, edge):
-    #     if isinstance(edge, BDEdge) and edge not in self.source_edges:
-    #         self.source_edges.add(edge)
-    #         return True
-    #     return False
-
     def add_out_edge(self, edge):
-        if isinstance(edge, BDEdge) and edge not in self.out_edges:
-            self.out_edges.add(edge)
-            return edge
+        if isinstance(edge, BDEdge):
+            if edge.value in self.out_edges:
+                return self.out_edges[edge.value]
+            else:
+                self.out_edges[edge.value] = edge
+                return edge
+        return None
 
     def add_edge(self, edge, _type):
         if isinstance(edge, BDEdge):
@@ -124,6 +111,7 @@ class BDNode:
 class BDEdge:
 
     def __init__(self, source_node, dest_node):
+        self.value = str(source_node) + str(dest_node)
         self.source = source_node
         self.dest = dest_node
         self.count = 1
