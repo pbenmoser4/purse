@@ -50,6 +50,10 @@ class BidirectionalGraphTestCase(unittest.TestCase):
 
         # Adding an edge with both nodes in the graph increments the count of
         # the edge that already exists
+        inc = graph.add_edge(source, dest)
+        self.assertIsInstance(inc, BDEdge)
+        self.assertEqual(inc, res)
+        self.assertEqual(inc.count, 2)
 
 
 class BDNodeTestCase(unittest.TestCase):

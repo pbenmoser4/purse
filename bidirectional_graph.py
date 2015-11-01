@@ -37,23 +37,20 @@ class BidirectionalGraph:
                 # if either of the nodes haven't been added, return None
                 return None
             edge = BDEdge(source_node, dest_node)
-            if edge.value in source_node.out_edges:
-                # The edge has already been added to the graph; increment the
-                # count and return the incremented edge
-                edge = source_node.out_edges[edge.value]
-                edge.increment_count()
-                return edge
-            else:
-                # The edge has not yet been added, but we know that both of the
-                # nodes are aldready a part of the graph
-                source_node.add_edge(edge, 'out')
-                dest_node.add_edge(edge, 'in')
-                return edge
+            # if edge.value in source_node.out_edges:
+            #     # The edge has already been added to the graph; increment the
+            #     # count and return the incremented edge
+            #     edge = source_node.out_edges[edge.value]
+            #     edge.increment_count()
+            #     return edge
+            # else:
+            #     # The edge has not yet been added, but we know that both of the
+            #     # nodes are aldready a part of the graph
+            #     source_node.add_edge(edge, 'out')
+            #     dest_node.add_edge(edge, 'in')
+            #     return edge
+            source_node.add_edge(edge, 'out')
         return None
-
-    # def add_edge_with_values(self, source_value, dest_value):
-        #do something eventually
-
 
 class BDNode:
 
@@ -61,7 +58,7 @@ class BDNode:
         self.value = value
         self.out_edges = {}
         self.in_edges = {}
-        
+
     def __str__(self):
         ret = str(self.value)
         ret += '\nOut Edges:\n'
@@ -175,11 +172,11 @@ if __name__ == '__main__':
                 # from the previous node to the current node Because of this,
                 # we can only do this after
                 edge = BDEdge(previous_node, node)
-                previous_node.add_dest_edge(edge)
-                node.add_source_edge(edge)
+                previous_node.add_out_edge(edge)
+                node.add_in_edge(edge)
             previous_node = node
 
     print len(split_passage)
     print len(word_graph.nodes)
-    for node in word_graph.nodes:
-        print node
+    for key in word_graph.nodes:
+        print word_graph.nodes[key]
