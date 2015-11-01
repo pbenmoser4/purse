@@ -28,7 +28,7 @@ class BidirectionalGraph:
         # Holders for the source node and the destination node. We use these
         # holder variables so that if the graph already contains the node, we
         # can refer to the already existing node, rather than the node that was
-        # passed into the methodd
+        # passed into the method
         source = None
         dest = None
         if isinstance(source_node, BDNode) and isinstance(dest_node, BDNode):
@@ -36,37 +36,22 @@ class BidirectionalGraph:
             if source_node.value not in self.nodes or dest_node.value not in self.nodes:
                 # if either of the nodes haven't been added, return None
                 return None
-            edge = BDEdge(source_node, dest_node)
-            # if edge.value in source_node.out_edges:
-            #     # The edge has already been added to the graph; increment the
-            #     # count and return the incremented edge
-            #     edge = source_node.out_edges[edge.value]
-            #     edge.increment_count()
-            #     return edge
-            # else:
-            #     # The edge has not yet been added, but we know that both of the
-            #     # nodes are aldready a part of the graph
-            #     source_node.add_edge(edge, 'out')
-            #     dest_node.add_edge(edge, 'in')
-            #     return edge
-            source_node.add_edge(edge, 'out')
+
+            source = self.nodes[source_node.value]
+            dest = self.nodes[dest_node.value]
+            edge = BDEdge(source, dest)
+            return source.add_edge(edge)
+
         return None
 
 class BDNode:
 
     def __init__(self, value):
         self.value = value
-        self.out_edges = {}
-        self.in_edges = {}
+        self.edges = {}
 
     def __str__(self):
         ret = str(self.value)
-        ret += '\nOut Edges:\n'
-        for key in self.out_edges:
-            ret += '\t' + str(self.out_edges[key]) + '\n'
-        ret += 'In Edges:\n'
-        for key in self.in_edges:
-            ret += '\t' + str(self.in_edges[key]) + '\n'
         return ret
 
     def __eq__(self, other):
@@ -77,48 +62,23 @@ class BDNode:
     def __hash__(self):
         return hash(self.value)
 
-    def add_out_edge(self, edge):
+    def add_edge(self, edge):
+        print 'adding edge'
         if isinstance(edge, BDEdge):
-            if edge.value in self.out_edges:
-                ret = BDEdge(self.out_edges[edge.value])
+            print 'input is a BDEdge'
+            if edge.value in self.edges:
+                print 'the edge exists'
+                ret = self.edges[edge.value]
                 ret.increment_count()
                 return ret
             else:
-                self.out_edges[edge.value] = edge
+                print 'the edge does not exist'
+                self.edges[edge.value] = edge
                 return edge
         return None
-
-    def add_in_edge(self, edge):
-        if isinstance(edge, BDEdge):
-            if edge.value in self.in_edges:
-                ret = BDEdge(self.in_edges[edge.value])
-                ret.increment_count()
-                return ret
-            else:
-                self.in_edges[edge.value] = edge
-                return edge
-        return None
-
-    def add_edge(self, edge, _type):
-        if _type == 'in':
-            return self.add_in_edge(edge)
-        elif _type == 'out':
-            return self.add_out_edge(edge)
-        else:
-            return None
-
-    def get_in_degree(self):
-        return len(self.in_edges)
-
-    def get_out_degree(self):
-        return len(self.out_edges)
 
     def get_degree(self, _type):
-        if _type == 'in':
-            return self.get_in_degree
-        elif _type == 'out':
-            return self.get_out_degree
-        else: return None
+        return len(self.edges)
 
 class BDEdge:
 
@@ -132,7 +92,7 @@ class BDEdge:
         return str(self.source.value) + '-' + str(self.count) + '->' + str(self.dest.value)
 
     def __hash__(self):
-        hs = str(self.source) + str(self.dest)
+        hs = str(self.source.value) + str(self.dest.value)
         return hash(hs)
 
     def __eq__(self, other):
@@ -141,7 +101,7 @@ class BDEdge:
         return False
 
     def increment_count(self):
-        self.count += 1
+        self.count = self.count + 1
 
 
 if __name__ == '__main__':
