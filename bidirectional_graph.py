@@ -41,6 +41,14 @@ class BidirectionalGraph:
 
         return None
 
+    # Search Algs
+
+    def depth_first_search(self, search, start):
+        """ Depth first search of the graph, starting at start node """
+
+    def breadth_first_search(self, search, start):
+        """ Breadth first search of the graph, starting at start ndoe """
+
 class BDNode:
 
     def __init__(self, value):
