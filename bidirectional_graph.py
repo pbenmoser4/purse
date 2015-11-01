@@ -121,5 +121,7 @@ if __name__ == '__main__':
 
     print len(split_passage)
     print len(word_graph.nodes)
-    # for key in word_graph.nodes:
-    #     print word_graph.nodes[key]
+    for key in word_graph.nodes:
+        node = word_graph.nodes[key]
+        for e_key in node.edges:
+            print node.edges[e_key]
