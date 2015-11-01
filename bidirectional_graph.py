@@ -21,9 +21,6 @@ class BidirectionalGraph:
                 return node
         return None
 
-    def add_node_with_value(self, value):
-        return self.add_node(BDNode(value))
-
     def add_edge(self, source_node, dest_node):
         # Holders for the source node and the destination node. We use these
         # holder variables so that if the graph already contains the node, we
@@ -99,6 +96,16 @@ class BDEdge:
     def increment_count(self):
         self.count = self.count + 1
 
+# Short reporting function to show first degree neighbors of the given word
+def report_word(graph, word, min_count):
+    if word in graph.nodes:
+        node = graph.nodes[word]
+        print node
+        for key in node.edges:
+            edge = node.edges[key]
+            if edge.count > min_count:
+                print edge
+
 
 if __name__ == '__main__':
 
@@ -118,22 +125,5 @@ if __name__ == '__main__':
 
     print len(split_passage)
     print len(word_graph.nodes)
-    # for key in word_graph.nodes:
-    #     node = word_graph.nodes[key]
-    #     print str(node) + ': ' + str(node.get_degree())
-        # for e_key in node.edges:
-        #     print '\t' +  str(node.edges[e_key])
 
-    the_node = word_graph.nodes['and']
-    print the_node
-    for _key in the_node.edges:
-        edge = the_node.edges[_key]
-        if edge.count > 10:
-            print edge
-
-    the_node = word_graph.nodes['the']
-    print the_node
-    for _key in the_node.edges:
-        edge = the_node.edges[_key]
-        if edge.count > 10:
-            print edge
+    report_word(word_graph, 'fr9eunr3', 0)
