@@ -12,7 +12,8 @@ class BidirectionalGraph:
         return str(self.nodes)
 
     def add_node(self, node):
-        if node.__class__ == BDNode:
+        # if node.__class__ == BDNode:
+        if isinstance(node, BDNode):
             if node.value in self.nodes:
                 return self.nodes[node.value]
             else:
@@ -45,9 +46,16 @@ class BidirectionalGraph:
 
     def depth_first_search(self, search, start):
         """ Depth first search of the graph, starting at start node """
+        if start in self.nodes and search in self.nodes:
+            # We know that the starting point and the item we're searching for
+            # are both in the graph. Now we start looking beeeoooootch
+            print 'something'
+        else:
+            return None
 
     def breadth_first_search(self, search, start):
         """ Breadth first search of the graph, starting at start ndoe """
+
 
 class BDNode:
 
@@ -80,6 +88,13 @@ class BDNode:
 
     def get_degree(self):
         return len(self.edges)
+
+    def get_neighbors(self):
+        neighbors = set()
+        for key in self.edges:
+            neighbors.add(self.edges[key].dest)
+        return neighbors
+
 
 class BDEdge:
 
@@ -134,4 +149,4 @@ if __name__ == '__main__':
     print len(split_passage)
     print len(word_graph.nodes)
 
-    report_word(word_graph, 'fr9eunr3', 0)
+    report_word(word_graph, 'robin', 0)
