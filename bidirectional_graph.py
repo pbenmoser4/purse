@@ -73,7 +73,7 @@ class BDNode:
                 return edge
         return None
 
-    def get_degree(self, _type):
+    def get_degree(self):
         return len(self.edges)
 
 class BDEdge:
@@ -103,25 +103,37 @@ class BDEdge:
 if __name__ == '__main__':
 
     word_graph = BidirectionalGraph()
-    passage = open('robin-passage.txt', 'r').read()
+    passage = open('robin.txt', 'r').read()
     split_passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation))).split()
 
     previous_node = None
     for i in range(len(split_passage)):
         item = split_passage[i].lower()
-        node = BDNode(item)
-        if word_graph.add_node(node):
-            if i > 0:
-                # only add edges from current note to the previous node, and
-                # from the previous node to the current node Because of this,
-                # we can only do this after
-                edge = BDEdge(previous_node, node)
-                previous_node.add_edge(edge)
-            previous_node = node
+        _node = BDNode(item)
+        node = word_graph.add_node(_node)
+        if i > 0:
+            edge = BDEdge(previous_node, node)
+            previous_node.add_edge(edge)
+        previous_node = node
 
     print len(split_passage)
     print len(word_graph.nodes)
-    for key in word_graph.nodes:
-        node = word_graph.nodes[key]
-        for e_key in node.edges:
-            print node.edges[e_key]
+    # for key in word_graph.nodes:
+    #     node = word_graph.nodes[key]
+    #     print str(node) + ': ' + str(node.get_degree())
+        # for e_key in node.edges:
+        #     print '\t' +  str(node.edges[e_key])
+
+    the_node = word_graph.nodes['and']
+    print the_node
+    for _key in the_node.edges:
+        edge = the_node.edges[_key]
+        if edge.count > 10:
+            print edge
+
+    the_node = word_graph.nodes['the']
+    print the_node
+    for _key in the_node.edges:
+        edge = the_node.edges[_key]
+        if edge.count > 10:
+            print edge
