@@ -63,16 +63,12 @@ class BDNode:
         return hash(self.value)
 
     def add_edge(self, edge):
-        print 'adding edge'
         if isinstance(edge, BDEdge):
-            print 'input is a BDEdge'
             if edge.value in self.edges:
-                print 'the edge exists'
                 ret = self.edges[edge.value]
                 ret.increment_count()
                 return ret
             else:
-                print 'the edge does not exist'
                 self.edges[edge.value] = edge
                 return edge
         return None
@@ -105,23 +101,11 @@ class BDEdge:
 
 
 if __name__ == '__main__':
-    # graph = BidirectionalGraph()
-    # source_node = BDNode('source')
-    # dest_node = BDNode('dest')
-    # other_source = BDNode('source')
-    # graph.add_node(source_node)
-    # graph.add_node(dest_node)
-    # graph.add_node(other_source)
-    # graph.add_edge(source_node, dest_node)
-    # print source_node
-    # print dest_node
-    # print graph
 
     word_graph = BidirectionalGraph()
     passage = open('robin-passage.txt', 'r').read()
     split_passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation))).split()
-    # for item in passage.split():
-    #     word_graph.add_node_with_value(item.lower())
+
     previous_node = None
     for i in range(len(split_passage)):
         item = split_passage[i].lower()
@@ -132,11 +116,10 @@ if __name__ == '__main__':
                 # from the previous node to the current node Because of this,
                 # we can only do this after
                 edge = BDEdge(previous_node, node)
-                previous_node.add_out_edge(edge)
-                node.add_in_edge(edge)
+                previous_node.add_edge(edge)
             previous_node = node
 
     print len(split_passage)
     print len(word_graph.nodes)
-    for key in word_graph.nodes:
-        print word_graph.nodes[key]
+    # for key in word_graph.nodes:
+    #     print word_graph.nodes[key]
