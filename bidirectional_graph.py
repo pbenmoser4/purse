@@ -44,12 +44,17 @@ class BidirectionalGraph:
 
     # Search Algs
 
-    def depth_first_search(self, search, start):
+    def depth_first_search(self, search, start, visited, path):
         """ Depth first search of the graph, starting at start node """
-        if start in self.nodes and search in self.nodes:
-            # We know that the starting point and the item we're searching for
-            # are both in the graph. Now we start looking beeeoooootch
-            print 'something'
+        if start in self.nodes and start not in visited:
+            # We know that the starting point is in the graph, and we haven't
+            # been in this part of the graph yet
+            path = str(path) + '->' + str(start)
+            if start == value:
+                return path
+            start_node = self.nodes[start]
+            neighbors = start_node.get_neighbors()
+
         else:
             return None
 
@@ -112,7 +117,8 @@ class BDEdge:
         return hash(hs)
 
     def __eq__(self, other):
-        if other.__class__ == BDEdge:
+        # if other.__class__ == BDEdge:
+        if isinstance(other, BDEdge):
             return self.source == other.source and self.dest == other.dest
         return False
 
