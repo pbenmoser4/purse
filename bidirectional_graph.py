@@ -46,17 +46,25 @@ class BidirectionalGraph:
 
     def depth_first_search(self, search, start, visited, path):
         """ Depth first search of the graph, starting at start node """
-        if start in self.nodes and start not in visited:
-            # We know that the starting point is in the graph, and we haven't
-            # been in this part of the graph yet
-            path = str(path) + '->' + str(start)
-            if start == value:
-                return path
-            start_node = self.nodes[start]
-            neighbors = start_node.get_neighbors()
 
-        else:
-            return None
+        ret = {
+            'path': path,
+            'found': None
+        }
+
+        if start in visited:
+            return ret
+
+        visited.add(start)
+        ret['path'].append(start)
+
+        if start.value == search.value:
+            ret['found'] = start
+            return ret
+
+        for node in start.get_neighbors():
+            search_val = self.depth_first_search(search, node, visited, ret['path'])
+
 
     def breadth_first_search(self, search, start):
         """ Breadth first search of the graph, starting at start ndoe """
