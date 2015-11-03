@@ -63,8 +63,11 @@ class BidirectionalGraph:
             return ret
 
         for node in start.get_neighbors():
-            search_val = self.depth_first_search(search, node, visited, ret['path'])
+            search_dict = self.depth_first_search(search, node, visited, ret['path'])
+            if search_dict['found']:
+                return search_dict
 
+        return ret
 
     def breadth_first_search(self, search, start):
         """ Breadth first search of the graph, starting at start ndoe """
@@ -164,3 +167,12 @@ if __name__ == '__main__':
     print len(word_graph.nodes)
 
     report_word(word_graph, 'robin', 0)
+
+    the_node = word_graph.nodes['the']
+    search_node = word_graph.nodes['her']
+
+    visited = set()
+    path = []
+    search_d = word_graph.depth_first_search(search_node, the_node, visited, path)
+    for _node in search_d['path']:
+        print str(_node)
