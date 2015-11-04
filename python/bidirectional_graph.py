@@ -1,5 +1,6 @@
 import re
 import string
+import os
 
 # TODO choose between isinstance and .__class__ equality check
 
@@ -82,7 +83,7 @@ class BidirectionalGraph:
             for neighbor in _node.get_neighbors():
                 if neighbor.value == search.value:
                     return queue[neighbor]
-                
+
 
 
 
@@ -164,7 +165,7 @@ def report_word(graph, word, min_count):
 if __name__ == '__main__':
 
     word_graph = BidirectionalGraph()
-    passage = open('robin.txt', 'r').read()
+    passage = open(os.path.dirname(__file__) + '/../robin.txt', 'r').read()
     split_passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation))).split()
 
     previous_node = None
@@ -183,7 +184,7 @@ if __name__ == '__main__':
     report_word(word_graph, 'robin', 0)
 
     the_node = word_graph.nodes['the']
-    search_node = word_graph.nodes['herg']
+    search_node = word_graph.nodes['her']
 
     visited = set()
     path = []
