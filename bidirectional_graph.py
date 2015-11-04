@@ -69,8 +69,22 @@ class BidirectionalGraph:
 
         return ret
 
-    def breadth_first_search(self, search, start):
-        """ Breadth first search of the graph, starting at start ndoe """
+    def breadth_first_search(self, search, start, visited, path):
+        """ Breadth first search of the graph, starting at start node """
+
+        # Start out the queue with `start` and then do a while loop until it
+        # is empty
+        queue = {start: 0}
+
+        while len(queue) > 0:
+            # loop until there isn't anything left in the queue
+            _node = queue.pop[0]
+            for neighbor in _node.get_neighbors():
+                if neighbor.value == search.value:
+                    return queue[neighbor]
+                
+
+
 
 
 class BDNode:
@@ -169,7 +183,7 @@ if __name__ == '__main__':
     report_word(word_graph, 'robin', 0)
 
     the_node = word_graph.nodes['the']
-    search_node = word_graph.nodes['her']
+    search_node = word_graph.nodes['herg']
 
     visited = set()
     path = []
