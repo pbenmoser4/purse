@@ -10,10 +10,42 @@
 //   .attr("r", 25)
 //   .style("fill", "purple");
 
-var data = [1,2,3];
+var radii = [50,40,30,20,10];
 
-var p = d3.select("body").selectAll("a")
-  .data(data)
+var svgContainer = d3.select("body").append("svg")
+  .attr("width", 100)
+  .attr("height", 100);
+
+var circles = svgContainer.selectAll("circle")
+  .data(radii)
   .enter()
-  .append("p")
-  .text(function(d){return d;});
+  .append("circle");
+
+var circleAttributes = circles
+  .attr("cx", 50)
+  .attr("cy", 50)
+  .attr("r", function(d){return d; })
+  .style("fill", function(d){
+    var retColor;
+    switch(d){
+    case 50:
+      retColor = "white";
+      break;
+    case 40:
+      retColor = "black";
+      break;
+    case 30:
+      retColor = "blue";
+      break;
+    case 20:
+      retColor = "red";
+      break;
+    case 10:
+      retColor = "yellow";
+      break;
+    default:
+      retColor = "red";
+      break;
+    }
+    return retColor;
+  })
