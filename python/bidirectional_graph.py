@@ -35,7 +35,7 @@ class BidirectionalGraph:
             dest = self.nodes[dest_node.value]
             edge = BDEdge(source, dest)
             self.edges[edge.value] = edge
-            return source.add_edge(edge)
+            return source.add_edge(edge)touch 
 
         return None
 
