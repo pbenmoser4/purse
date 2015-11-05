@@ -1,6 +1,6 @@
 import re
 import string
-import os
+import os.path
 
 # TODO choose between isinstance and .__class__ equality check
 
@@ -8,6 +8,7 @@ class BidirectionalGraph:
 
     def __init__(self):
         self.nodes = {}
+        self.edges = {}
 
     def __str__(self):
         return str(self.nodes)
@@ -24,12 +25,6 @@ class BidirectionalGraph:
         return None
 
     def add_edge(self, source_node, dest_node):
-        # Holders for the source node and the destination node. We use these
-        # holder variables so that if the graph already contains the node, we
-        # can refer to the already existing node, rather than the node that was
-        # passed into the method
-        source = None
-        dest = None
         if isinstance(source_node, BDNode) and isinstance(dest_node, BDNode):
             # both nodes are confirmed as BDNodes
             if source_node.value not in self.nodes or dest_node.value not in self.nodes:
@@ -39,6 +34,7 @@ class BidirectionalGraph:
             source = self.nodes[source_node.value]
             dest = self.nodes[dest_node.value]
             edge = BDEdge(source, dest)
+            self.edges[edge.value] = edge
             return source.add_edge(edge)
 
         return None
@@ -165,7 +161,12 @@ def report_word(graph, word, min_count):
 if __name__ == '__main__':
 
     word_graph = BidirectionalGraph()
-    passage = open(os.path.dirname(__file__) + '/../robin.txt', 'r').read()
+
+    # print os.listdir(os.pardir)
+
+    passage = open(os.path.dirname(__file__) + '../robin-passage.txt', 'r').read()
+    output = open(os.path.dirname(__file__) + '../viz/res/output.json', 'w')
+
     split_passage = passage.translate(string.maketrans(string.punctuation, ' '*len(string.punctuation))).split()
 
     previous_node = None
@@ -180,14 +181,3 @@ if __name__ == '__main__':
 
     print len(split_passage)
     print len(word_graph.nodes)
-
-    report_word(word_graph, 'robin', 0)
-
-    the_node = word_graph.nodes['the']
-    search_node = word_graph.nodes['her']
-
-    visited = set()
-    path = []
-    search_d = word_graph.depth_first_search(search_node, the_node, visited, path)
-    for _node in search_d['path']:
-        print str(_node)
