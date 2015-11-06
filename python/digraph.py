@@ -7,39 +7,103 @@ class Digraph:
     def __init__(self):
         """
         Initialize the directional graph
+
+        This is going to be a purely adjacency list representation. Built for
+        use with d3.js
         """
 
-        """
-        The nodes attribute is a map of nodes to their neighbors. Instead of an
-        array of neighbors for each node key, there will be a dictionary, with
-        the "node" key mapping to the neighboring node, and the "edge" key
-        mapping to the associated edge object, along with attributes
-        """
+        # map of nodes to neighbors
         self.nodes = {}
 
-    #TODO def get_edge(source, dest) checks for the source key, and then checks for dest, returns associated edge if available
 
-class Node:
-
-    def __init__(self, attrs):
+    def get_nodes(self):
         """
-        Initialize a node to be added to the directional graph
+        Get the nodes of this graph
 
-        @type attrs: dictionary
-        @param attrs: A dictionary of attributes to be associated with the node
+        @rtype:     list
+        @return:    A list of all the nodes in this graph
         """
 
-        # The value associated with this node
-        self.val = attrs['val']
+    def get_neighbors(self, node):
+        """
+        Get the neighbors of the given node
 
-        # The other attributes of this node
-        _attrs = dict(attrs)
-        del _attrs['val']
-        self.attrs = _attrs
+        @type   node: DNode
+        @param  node: The node for which we're finding neighbors
 
-class Edge:
-
-    def __init__(self):
+        @rtype:     list
+        @return:    A list of nodes neighboring the given node
         """
 
+    def get_edges(self):
+        """
+        Get the edges of the current graph
+
+        @rtype:     list
+        @return:    A list of touples representing the edges of the graph
+        """
+
+    def has_node(self, node):
+        """
+        Determine whether the given node is in the graph
+
+        @type   node: node
+        @param  node: The node to check for inclusion
+
+        @rtype:     boolean
+        @return:    A boolean representing whether the given node is in the graph
+        """
+
+    def has_edge(self, edge):
+        """
+        Determine whether the given edge is a part of the graph
+
+        @type   edge: touple
+        @param  edge: The edge to check for inclusion
+
+        @rtype:     boolean
+        @return:    A boolean representing whether the given edge is in the graph
+        """
+
+    def add_node(self, node):
+        """
+        Add the given node to the graph, if it is not a part of it already
+
+        @type   node: node
+        @param  node: The node to add to the graph
+        """
+
+    def add_edge(self, edge):
+        """
+        Add the given edge to the graph, if it is not a part of it already
+
+        @type   edge: touple
+        @param  edge: The edge to add to the graph
+        """
+
+    def del_node(self, node):
+        """
+        Remove the given node from the graph, if it is in the graph
+
+        @type   node: nodes
+        @param  node: The node to delete from the graph
+        """
+
+    def del_edge(self, edge):
+        """
+        Remove the given edge from the graph, it is in the graph
+
+        @type   edge: touple
+        @param  edge: The edge to delete from the graph
+        """
+
+    def get_node_order(self, node):
+        """
+        Get the degree of the given node, if it is in the graph
+
+        @type   node: node
+        @param  node: The node to get the order for
+
+        @rtype:     number
+        @return:    The order of the given node
         """
