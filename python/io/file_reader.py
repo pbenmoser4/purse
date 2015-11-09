@@ -10,7 +10,7 @@ class FileReader:
     PATH_SRC = os.path.abspath(os.path.join(PATH_ROOT, 'src'))
     PATH_VIZ = os.path.abspath(os.path.join(PATH_ROOT, 'viz'))
 
-    def __init__(self, filename, filetype="txt", loadtype="iter"):
+    def __init__(self, filename, filetype="text", loadtype="iter"):
         self.filename = filename
         self.filetype = filetype
         self.loadtype = loadtype
@@ -20,6 +20,31 @@ class FileReader:
 
     def __input_exists(self):
         return self.filename in os.listdir(self.PATH_SRC)
+
+    def read(self):
+        """
+        Read self.file
+        """
+
+    def read_text(self):
+        """
+        Custom read implementation for a text file
+
+        @rtype  Generator
+        @return A generator that goes through self.file and yields words
+        """
+
+        if self.file:
+            for line in self.file:
+                # loop through the lines in the file and return one item at a
+                # time. Item is defined by a set of characters separated by
+                # whitespace
+                for item in line.split():
+                    yield item
+            # This is implicit I think, but why not
+            raise StopIteration
+        else:
+            raise Exception
 
 if __name__ == "__main__":
     fr = FileReader('robin.txt')
