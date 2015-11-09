@@ -26,6 +26,9 @@ class FileReader:
         Read self.file
         """
 
+        if self.filetype == 'text':
+            return self.read_text()
+
     def read_text(self):
         """
         Custom read implementation for a text file
@@ -47,9 +50,12 @@ class FileReader:
             raise Exception
 
 if __name__ == "__main__":
-    fr = FileReader('robin.txt')
+    fr = FileReader('robin-passage.txt')
 
     print fr.PATH_PYTHON
 
     print os.listdir(fr.PATH_SRC)
+
+    for item in fr.read():
+        print item
     # print os.path.join(fr._PATH_SRC, os.path.pardir, os.path.pardir)
