@@ -1,25 +1,20 @@
+from file_reader import FileReader
+
 class Loader:
     """
     A class designed to load data into a graph
     """
 
-    def __init__(self):
+    def __init__(self, file_reader, structure):
         """
-        Who knows what
-        """
+        Initializing a Loader Object with a FileReader object and a structure
 
-    def load_text(self, filepath, structure):
-        """
-        Load a text file into the given structure, and then return that struct
+        @type   file_reader: FileReader
+        @param  file_reader: A FileReader object used to read desired file
 
-        @type   filepath: string
-        @param  filepath: The path to the file that you want to load
-
-        @type   structure: graph, tree, or other structure
-        @param  structure: The structure that you want to load text into
-
-        @rtype  graph, tree, or other structure
-        @return The structure that has been populated
+        @type   structure: structure
+        @param  structure: graph, tree, etc
         """
 
-        
+        self.file_reader = file_reader
+        self.structure = structure
