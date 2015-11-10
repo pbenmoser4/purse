@@ -18,3 +18,4 @@ class Loader:
 
         self.file_reader = file_reader
         self.structure = structure
+        #something new... CHEATING
