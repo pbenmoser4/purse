@@ -27,9 +27,9 @@ class FileReader:
         """
 
         if self.filetype == 'text':
-            return self.read_text()
+            return self.__read_text()
 
-    def read_text(self):
+    def __read_text(self):
         """
         Custom read implementation for a text file
 

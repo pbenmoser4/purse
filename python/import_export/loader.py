@@ -6,20 +6,23 @@ class Loader:
     A class designed to load data into a graph
     """
 
-    def __init__(self, file_reader, structure):
+    def __init__(self, from_file, to_structure, **kwargs):
         """
         Initializing a Loader Object with a FileReader object and a structure
 
-        @type   file_reader: FileReader
-        @param  file_reader: A FileReader object used to read desired file
+        @type   from_file: string
+        @param  from_file: Filename of the file that you want to load
 
-        @type   structure: structure
-        @param  structure: graph, tree, etc
+        @type   to_structure: structure
+        @param  to_structure: Graph, tree, etc that you want to load data into
         """
 
-        self.file_reader = file_reader
-        self.structure = structure
+        self.file_reader = FileReader(from_file)
+        self.structure = to_structure
 
-if __name__=="__main__":
-    d = Digraph()
-    print d
+    def load(self):
+        """
+        Load information from the file_reader.read() iterator into structure
+        """
+
+    def __load_graph(self):
