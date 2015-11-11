@@ -1,5 +1,5 @@
 from file_reader import FileReader
-from python.structures import Digraph
+from purse.python import structures
 
 class Loader:
     """
