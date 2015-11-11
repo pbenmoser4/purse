@@ -1,5 +1,5 @@
 from file_reader import FileReader
-from purse.python.structures import digraph
+from python.structures import Digraph
 
 class Loader:
     """
@@ -19,3 +19,7 @@ class Loader:
 
         self.file_reader = file_reader
         self.structure = structure
+
+if __name__=="__main__":
+    d = Digraph()
+    print d

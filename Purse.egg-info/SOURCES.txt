@@ -1,0 +1,16 @@
+setup.py
+Purse.egg-info/PKG-INFO
+Purse.egg-info/SOURCES.txt
+Purse.egg-info/dependency_links.txt
+Purse.egg-info/top_level.txt
+python/__init__.py
+python/sandbox.py
+python/import_export/__init__.py
+python/import_export/file_reader.py
+python/import_export/loader.py
+python/structures/__init__.py
+python/structures/digraph.py
+python/structures/test_digraph.py
+python/web/__init__.py
+python/web/soup.py
+python/web/website.py
