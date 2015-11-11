@@ -1,4 +1,5 @@
 from file_reader import FileReader
+from python.structures import Digraph
 
 class Loader:
     """
@@ -18,4 +19,3 @@ class Loader:
 
         self.file_reader = file_reader
         self.structure = structure
-        #something new... CHEATING
